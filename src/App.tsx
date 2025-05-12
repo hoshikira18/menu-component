@@ -1,12 +1,12 @@
 import Button from "./components/Button"
 import Menu from "./components/Menu/Menu"
 
-
 function App() {
   return (
-    <div className="h-[2000px]">
-      <div className="container p-3 min-w-[1000px] h-[800px] flex items-center justify-center">
-        <Menu position="left" offset={20}>
+    <div className="overflow-scroll h-screen">
+      <div className="h-[1000px] w-[1000px] relative flex items-center justify-center bg-blue-200">
+        test
+        <Menu position="left" offset={10}>
           <Menu.Trigger>
             <Button>
               Open
@@ -16,14 +16,14 @@ function App() {
             <Menu.Item>Item 1</Menu.Item>
             <Menu.Item>Item 2</Menu.Item>
             <Menu.Item>
-              <Menu position="right" offset={20}>
+              <Menu position="left" offset={10}>
                 <Menu.Trigger>
                   Open
                 </Menu.Trigger>
                 <Menu.Dropdown>
                   <Menu.Item>Item 1</Menu.Item>
                   <Menu.Item>
-                    <Menu position="right" offset={20}>
+                    <Menu position="left" offset={20}>
                       <Menu.Trigger>
                         Open
                       </Menu.Trigger>
@@ -31,7 +31,6 @@ function App() {
                         <Menu.Item>Item 1</Menu.Item>
                         <Menu.Item>Item 2</Menu.Item>
                         <Menu.Item>Item 3</Menu.Item>
-
                       </Menu.Dropdown>
                     </Menu>
                   </Menu.Item>

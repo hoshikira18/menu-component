@@ -4,6 +4,7 @@ import type { Side } from "./types";
 interface MenuContextProps {
     isOpen: boolean
     toggleMenu: () => void
+    setPosition: (position: Side) => void
     triggerRef: RefObject<HTMLButtonElement | null>
     dropdownRef: RefObject<HTMLUListElement | null>
     position: Side

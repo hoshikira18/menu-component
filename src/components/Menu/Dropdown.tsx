@@ -4,6 +4,7 @@ import { calculateCoordsFromPlacement } from "./helper";
 
 function Dropdown({ children }: { children: ReactNode }) {
     const { triggerRef, dropdownRef, isOpen, position, offset } = useMenuContext()
+    let p = position
     const [coords, setCoords] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
 
     useEffect(() => {
@@ -16,7 +17,21 @@ function Dropdown({ children }: { children: ReactNode }) {
         const floating = dropdownRef.current?.getBoundingClientRect()
         if (!reference || !floating) return
 
-        const { x, y } = calculateCoordsFromPlacement({ reference, floating }, position, offset)
+        if (floating.y < offset) {
+            p = "bottom"
+        }
+        if (floating.x < offset) {
+            p = "right"
+        }
+
+        if (floating.x + floating.width > window.innerWidth - offset) {
+            p = "left"
+        }
+        if (floating.y + floating.height > window.innerHeight - offset) {
+            p = "top"
+        }
+
+        const { x, y } = calculateCoordsFromPlacement({ reference, floating }, p, offset)
         setCoords({ x, y })
     }
 
@@ -52,15 +67,19 @@ function Dropdown({ children }: { children: ReactNode }) {
 
     if (!isOpen) return null
     return (
-        <ul key={JSON.stringify(coords)} style={{
-            width: "max-content",
-            position: "fixed",
-            top: coords.y,
-            left: coords.x,
-        }}
+        <ul
+            key={JSON.stringify(coords)}
+            style={{
+                width: "max-content",
+                position: "absolute",
+                top: coords.y,
+                left: coords.x,
+            }}
             ref={dropdownRef}
-            className="p-0.5 bg-white border border-gray-300 rounded-md shadow z-40"
-        >{children}</ul>
+            className="p-0.5 bg-white/30 backdrop-blur-xs border border-gray-300 rounded-md shadow z-40"
+        >
+            {children}
+        </ul>
     )
 }
 

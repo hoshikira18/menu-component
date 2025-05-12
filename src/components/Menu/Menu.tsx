@@ -20,6 +20,10 @@ function Menu({ children, position = "bottom", offset = 5 }: MenuProps) {
         setIsOpen((prev) => !prev)
     }
 
+    const setPosition = (newPosition: Side) => {
+        position = newPosition
+    }
+
     const handleClickOutside = (event: MouseEvent) => {
         const target = event.target as HTMLElement
         if (dropdownRef.current && !dropdownRef.current.contains(target) && triggerRef.current && !triggerRef.current.contains(target)) {
@@ -43,6 +47,7 @@ function Menu({ children, position = "bottom", offset = 5 }: MenuProps) {
             triggerRef,
             dropdownRef,
             position,
+            setPosition,
             offset,
         }}>
             <div className="menu relative">
